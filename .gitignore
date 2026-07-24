@@ -1,0 +1,25 @@
+# Environment variables and secrets
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# RAG-generated data
+data/processed/
+vector_store/
+chroma_db/
+
+# Private personal data
+data/private/*
+
+# Keep the private folder in the project structure
+!data/private/.gitkeep
+
+# Editor and operating system files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
