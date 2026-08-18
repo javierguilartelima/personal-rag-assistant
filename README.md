@@ -1,49 +1,109 @@
 # Personal RAG Assistant
 
-A privacy-aware personal AI assistant that retrieves relevant knowledge from selected documents and answers with grounded sources.
+A privacy-aware Retrieval-Augmented Generation (RAG) system built in Python for retrieving relevant information from selected documents while maintaining clear boundaries between public and private data.
 
-## Long-Term Vision
+## Why I Built This
 
-Build a useful personal AI system that can gradually help with:
+Personal knowledge is often scattered across notes, documents, and different systems. This project explores how a personal AI assistant can retrieve useful information from that knowledge while keeping sensitive information separated from content that can safely be shared.
 
-- retrieving knowledge from personal notes and systems;
+The long-term goal is to build a modular personal assistant that can support learning, projects, planning, and automation without training a foundation model from scratch.
 
-- reducing repeated decisions;
+## Current Capabilities
 
-- supporting study, projects, planning, and daily organization;
+The current implementation includes:
 
-- separating private personal context from public/shareable knowledge;
+- Privacy-aware document loading and access filtering
+- Public/private source classification
+- Metadata-preserving document chunking
+- Keyword-based chunk retrieval
+- Semantic retrieval
+- Combined keyword and semantic retrieval modes
+- Knowledge retrieval pipeline
+- Source-aware results
+- Automated tests for public/private data boundaries
 
-- eventually integrating tools and automations;
+## How It Works
 
-- evolving into a broader personal assistant without training a foundation model from scratch.
+The system follows a simple RAG pipeline:
 
-## Current Milestone
+1. Load approved documents.
+2. Apply visibility metadata (`public` or `private`).
+3. Split documents into searchable chunks while preserving metadata.
+4. Retrieve relevant chunks using keyword or semantic search.
+5. Filter retrieved information according to the active privacy boundary.
+6. Provide relevant source context for grounded downstream answers.
 
-The first version should:
+## Privacy Design
 
-1. ingest a small set of selected notes;
+Privacy is treated as part of the architecture rather than an afterthought.
 
-2. classify each source as `public` or `private`;
+Private personal data is excluded from the repository through `.gitignore`, while the project keeps separate public and private data locations.
 
-3. retrieve the most relevant text fragments;
+The retrieval layer also includes tests designed to ensure that private content cannot be returned when operating under a public visibility boundary.
 
-4. answer questions using those fragments;
-
-5. show the sources used;
-
-6. prevent public mode from accessing private content.
-
-## Initial Structure
+## Project Structure
 
 ```text
+data/
+├── public/      # Shareable example knowledge
+└── private/     # Local private data excluded from GitHub
 
-data/public/   Shareable knowledge
+src/             # Application and retrieval code
+docs/            # Architecture and design decisions
+tests/           # Automated tests
+## Tech Stack
 
-data/private/  Personal information excluded from GitHub
+- Python
+- Retrieval-Augmented Generation (RAG)
+- Semantic search
+- Keyword retrieval
+- Vector-based retrieval
+- Automated testing
+- Git / GitHub
 
-src/           Application code
+## Setup
 
-docs/          Architecture and project decisions
+Clone the repository:
 
-tests/         Tests
+```bash
+git clone https://github.com/javierguilartelima/personal-rag-assistant.git
+cd personal-rag-assistant
+```
+
+Create a virtual environment and install the dependencies:
+
+```bash
+python -m venv .venv
+pip install -r requirements.txt
+```
+
+Copy `.env.example` to `.env` and configure any required local environment variables.
+
+Private data and environment secrets should never be committed to the repository.
+
+## Status
+
+Active prototype.
+
+The retrieval and privacy foundations are implemented. Future development may add a user-facing interface, broader document ingestion, additional retrieval strategies, tool integrations, and automation.
+
+## What This Project Demonstrates
+
+This project demonstrates practical experience with:
+
+- Python application development
+- AI/RAG system architecture
+- Information retrieval
+- Privacy-aware system design
+- Modular software development
+- Automated testing
+- Git-based development workflows
+
+## Roadmap
+
+- Expand supported document formats
+- Improve retrieval evaluation
+- Add additional retrieval strategies
+- Build a user-facing query interface
+- Integrate selected tools and automations
+- Continue strengthening privacy and access controls
